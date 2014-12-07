@@ -55,6 +55,7 @@ public class Serializer {
 
     /**
      * De-serializes [loads] a serialized scene.
+     *
      * @param fileName The save file to de-serialize.
      * @param delete   Should the save file be deleted after de-serialization?
      */

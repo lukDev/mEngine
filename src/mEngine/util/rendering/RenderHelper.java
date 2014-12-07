@@ -19,6 +19,7 @@ public class RenderHelper {
 
     /**
      * Used for frustum culling.
+     *
      * @param vector The vertex to check.
      * @return True if on screen, false if not.
      */

@@ -29,7 +29,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static mEngine.util.input.Input.isKeyDown;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.util.glu.GLU.gluOrtho2D;
 import static org.lwjgl.util.glu.GLU.gluPerspective;
@@ -123,6 +122,7 @@ public class GraphicsController {
 
     /**
      * Configures the window.
+     *
      * @param width  Window width
      * @param height Window height
      * @param title  Window title
@@ -172,6 +172,7 @@ public class GraphicsController {
 
     /**
      * Allows you to make the game a part of another window.
+     *
      * @param parent The AWT canvas you want the game to show in
      */
     public static void setParent(Canvas parent) {
@@ -230,6 +231,7 @@ public class GraphicsController {
 
     /**
      * Changes the title of the game window.
+     *
      * @param title The desired title
      */
     public static void setWindowTitle(String title) {
@@ -238,6 +240,7 @@ public class GraphicsController {
 
     /**
      * Returns the current game window width.
+     *
      * @return The current game window width
      */
     public static int getWidth() {
@@ -246,6 +249,7 @@ public class GraphicsController {
 
     /**
      * Returns the current game window height.
+     *
      * @return The current game window height
      */
     public static int getHeight() {
@@ -254,6 +258,7 @@ public class GraphicsController {
 
     /**
      * Returns the maximum frames per second specified in the properties.
+     *
      * @return The maximum FPS value
      */
     public static int getFps() {
@@ -262,6 +267,7 @@ public class GraphicsController {
 
     /**
      * Returns the game window's current aspect ratio.
+     *
      * @return The game window's current aspect ratio
      */
     public static float getAspectRatio() {

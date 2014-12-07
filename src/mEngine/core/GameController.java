@@ -48,6 +48,7 @@ public class GameController {
 
     /**
      * Returns if the game is paused or not.
+     *
      * @return True if paused, false if not
      */
     public static boolean isGamePaused() {
@@ -56,6 +57,7 @@ public class GameController {
 
     /**
      * Returns if the ObjectController is loading or not.
+     *
      * @return True if loading, false if not.
      */
     public static boolean isLoading() {
@@ -64,6 +66,7 @@ public class GameController {
 
     /**
      * Sets the loading variable and triggers the "loadingStarted" and "loadingStopped" events.
+     *
      * @param loading If the game should be loading.
      */
     public static void setLoading(boolean loading) {

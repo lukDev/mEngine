@@ -28,6 +28,7 @@ public class ModelHelper {
 
     /**
      * Loads a model into loadedModels.
+     *
      * @param fileName The name of the desired model.
      */
     private static void loadModel(String fileName) {
@@ -120,6 +121,7 @@ public class ModelHelper {
 
     /**
      * Loads all materials in a library into loadedMaterials.
+     *
      * @param fileName The name of the desired library.
      */
     private static void loadMaterialLibrary(String fileName) {
@@ -174,6 +176,7 @@ public class ModelHelper {
     /**
      * Returns the requested model.
      * The model and its materials get loaded if needed.
+     *
      * @param name The name of the desired model.
      * @return The requested model.
      */

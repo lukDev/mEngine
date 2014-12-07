@@ -24,6 +24,7 @@ public class LoadingScreen extends GUIScreen {
 
     /**
      * Default constructor for loading screens.
+     *
      * @param backgroundTextureName The background texture of the loading screen.
      */
     public LoadingScreen(String backgroundTextureName) {

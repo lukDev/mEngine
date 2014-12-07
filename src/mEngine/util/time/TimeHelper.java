@@ -35,6 +35,7 @@ public class TimeHelper {
 
     /**
      * Gives you the current time.
+     *
      * @return Current time in milliseconds.
      */
     public static long getTime() {
@@ -93,6 +94,7 @@ public class TimeHelper {
 
     /**
      * Pauses the thread this method was called from by the amount of milliseconds.
+     *
      * @param milliseconds The amount of milliseconds the pause should last.
      */
     public static void sleep(long milliseconds) {

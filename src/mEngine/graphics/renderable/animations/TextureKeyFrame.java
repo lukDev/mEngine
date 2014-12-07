@@ -13,6 +13,7 @@ public class TextureKeyFrame extends KeyFrame {
 
     /**
      * A keyframe containing a texture.
+     *
      * @param delay   The duration of this keyframe.
      * @param texture The texture of this keyframe.
      */
@@ -22,6 +23,7 @@ public class TextureKeyFrame extends KeyFrame {
 
     /**
      * Returns the current texture.
+     *
      * @return The current texture.
      */
     @Override

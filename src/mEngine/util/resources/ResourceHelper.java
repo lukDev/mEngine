@@ -53,6 +53,7 @@ public class ResourceHelper {
 
     /**
      * Returns a game resource.
+     *
      * @param fileName The name of the requested resource, without file ending.
      * @param type     The resource type (ResourceHelper.RES_XXX).
      * @return The requested resource file.
@@ -102,6 +103,7 @@ public class ResourceHelper {
 
     /**
      * Returns the URL to a requested resource.
+     *
      * @param fileName The name of the requested resource, without file ending.
      * @param type     The resource type (ResourceHelper.RES_XXX).
      * @return The requested URL.

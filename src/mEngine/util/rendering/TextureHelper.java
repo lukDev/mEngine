@@ -28,6 +28,7 @@ public class TextureHelper {
 
     /**
      * Loads a texture into the list.
+     *
      * @param fileName The name of the texture.
      */
     private static void loadTexture(String fileName) {
@@ -71,6 +72,7 @@ public class TextureHelper {
     /**
      * Returns the desired texture.
      * The texture gets loaded if it isn't already.
+     *
      * @param name The name of the texture.
      * @return The desired texture.
      */
@@ -88,6 +90,7 @@ public class TextureHelper {
 
     /**
      * Unloads a texture. Use this for memory efficiency.
+     *
      * @param name The name of the texture.
      */
     public static void removeTexture(String name) {

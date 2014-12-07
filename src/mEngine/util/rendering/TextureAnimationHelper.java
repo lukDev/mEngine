@@ -20,6 +20,7 @@ public class TextureAnimationHelper {
 
     /**
      * Returns the desired texture animation.
+     *
      * @param animationName The name of the desired animation.
      * @return The desired animation.
      * @throws IOException if the animation file is not found.

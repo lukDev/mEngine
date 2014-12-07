@@ -14,6 +14,7 @@ public class FontHelper {
 
     /**
      * Loads a true type font.
+     *
      * @param face         The font face / type.
      * @param style        The style (bold|italic|...).
      * @param size         The font size.

@@ -12,6 +12,7 @@ public class TextureAnimation extends Animation {
 
     /**
      * Initializes a new texture animation.
+     *
      * @param keyFrames         The keyframes for this animation.
      * @param stopAfterOneCycle Should the animation stop or run continuously?
      */
@@ -21,6 +22,7 @@ public class TextureAnimation extends Animation {
 
     /**
      * Returns the currently active texture.
+     *
      * @return The current texture.
      */
     public Texture getCurrentTexture() {

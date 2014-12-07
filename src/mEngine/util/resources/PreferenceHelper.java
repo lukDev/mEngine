@@ -17,6 +17,7 @@ public class PreferenceHelper {
 
     /**
      * Loads a preference file.
+     *
      * @param fileName The preference file to load.
      */
     public static void loadPreferences(String fileName) {
@@ -38,6 +39,7 @@ public class PreferenceHelper {
 
     /**
      * Write a preference to the opened preference file.
+     *
      * @param key   The name of the preference.
      * @param value The preference value.
      */
@@ -47,6 +49,7 @@ public class PreferenceHelper {
 
     /**
      * Retrieves a value from the loaded preference file.
+     *
      * @param key The name of the preference.
      * @return The preference value.
      */
@@ -56,6 +59,7 @@ public class PreferenceHelper {
 
     /**
      * Retrieves a boolean from the loaded preference file.
+     *
      * @param key The name of the preference.
      * @return The preference value as boolean.
      */
@@ -68,6 +72,7 @@ public class PreferenceHelper {
 
     /**
      * Retrieves an integer from the loaded preference file.
+     *
      * @param key The name of the preference.
      * @return The preference value as integer.
      */
@@ -77,6 +82,7 @@ public class PreferenceHelper {
 
     /**
      * Retrieves a float from the loaded preference file.
+     *
      * @param key The name of the preference.
      * @return The preference value as float.
      */

@@ -15,8 +15,9 @@ public class ThreadHelper {
 
     /**
      * Runs a thread asynchronously.
+     *
      * @param thread The thread (Runnable) to run.
-     * @param name The name of the thread.
+     * @param name   The name of the thread.
      */
     public static void startThread(Runnable thread, String name) {
 
@@ -34,6 +35,7 @@ public class ThreadHelper {
     /**
      * Runs a thread asynchronously.
      * A name will automatically be assigned.
+     *
      * @param thread The thread (Runnable) to run.
      */
     public static void startThread(Runnable thread) {

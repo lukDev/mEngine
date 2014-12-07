@@ -12,6 +12,7 @@ public class NumberFormatHelper {
 
     /**
      * Formats a number in a specified pattern.
+     *
      * @param input  The number to format.
      * @param format The formatting pattern, e.g. "0.00" (Number with 2 decimal digits).
      * @return The formatted number.
@@ -23,7 +24,8 @@ public class NumberFormatHelper {
 
     /**
      * Cuts the decimals of a number to a specified amount.
-     * @param input The number to format.
+     *
+     * @param input    The number to format.
      * @param decimals The number of decimals to keep.
      * @return The formatted number.
      */

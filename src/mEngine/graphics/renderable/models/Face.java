@@ -16,9 +16,10 @@ public class Face {
 
     /**
      * A new face in 3D space.
+     *
      * @param vertexIndices The indices of the vertices in a model that make up the face.
      * @param normalIndices The corresponding normal indices.
-     * @param uvIndices The corresponding texture indices.
+     * @param uvIndices     The corresponding texture indices.
      */
     public Face(Vector3f vertexIndices, Vector3f normalIndices, Vector3f uvIndices) {
         this.vertexIndices = vertexIndices;

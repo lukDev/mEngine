@@ -85,6 +85,7 @@ public class Input {
 
     /**
      * Tells you if a certain key is currently in the "pressed" or "down" state.
+     *
      * @param keyCode The desired key.
      * @return True if the key is pressed, false if not.
      */
@@ -94,6 +95,7 @@ public class Input {
 
     /**
      * Tells you if a certain mouse button is currently in the "pressed" or "down" state.
+     *
      * @param button The desired mouse button.
      * @return True if the button is pressed, false if not.
      */
@@ -103,6 +105,7 @@ public class Input {
 
     /**
      * Tells you if a certain key was just pressed down.
+     *
      * @param keyCode The desired key.
      * @return True if the key was just pressed down, false if not.
      */
@@ -114,6 +117,7 @@ public class Input {
 
     /**
      * Tells you if a certain mouse button was just pressed down.
+     *
      * @param button The desired mouse button.
      * @return True if the button was just pressed down, false if not.
      */
@@ -125,6 +129,7 @@ public class Input {
 
     /**
      * Tells you if a certain key was just released.
+     *
      * @param keyCode The desired key.
      * @return True if the key was just released, false if not.
      */
@@ -136,6 +141,7 @@ public class Input {
 
     /**
      * Tells you if a certain mouse button was just released.
+     *
      * @param button The desired mouse button.
      * @return True if the button was just released, false if not.
      */
@@ -147,11 +153,12 @@ public class Input {
 
     /**
      * Assign a name to a specific key (e.g. "forward" to Keyboard.KEY_W).
-     * @param name    The name of the key, e.g. "forward".
+     *
+     * @param name The name of the key, e.g. "forward".
      * @param code The keycode, usually Keyboard.KEY_x where x is the desired key.
      */
     public static void assignInputEvent(String name, boolean keyBoard, InputEventType type, int code) {
-        inputEventAssignments.put(name, new Object[] {keyBoard, type, code});
+        inputEventAssignments.put(name, new Object[]{keyBoard, type, code});
 
         if (keyBoard) keyStates[code] = false;
         else buttonStates[code] = false;
@@ -159,6 +166,7 @@ public class Input {
 
     /**
      * Releases the desired key from its binding.
+     *
      * @param name The name of the key, e.g. "forward".
      */
     public static void unAssignInputEvent(String name) {
