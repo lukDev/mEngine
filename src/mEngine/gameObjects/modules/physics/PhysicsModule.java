@@ -179,6 +179,12 @@ public class PhysicsModule extends Module {
         return this;
     }
 
+    public PhysicsModule setVelocity(Vector3f linear, Vector3f angular) {
+        body.setLinearVelocity(linear);
+        body.setAngularVelocity(angular);
+        return this;
+    }
+
     /**
      * Apply a force in the center of the object
      *

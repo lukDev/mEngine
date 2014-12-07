@@ -29,23 +29,17 @@ public class RenderModule extends ModuleRenderable3D {
     int displayListIndex;
 
     public RenderModule(String modelFileName) {
-
         this(modelFileName, true);
-
     }
 
     public RenderModule(String modelFileName, boolean isStatic) {
-
         this(modelFileName, isStatic, new Vector3f());
-
     }
 
     public RenderModule(String modelFileName, boolean isStatic, Vector3f offset) {
-
         this.modelFileName = modelFileName;
         displayListFactors[0] = isStatic;
         this.offset = offset;
-
     }
 
     public void onCreation(GameObject obj) {

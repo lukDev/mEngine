@@ -10,6 +10,7 @@ import mEngine.graphics.renderable.materials.Material3D;
 import mEngine.graphics.renderable.models.Face;
 import mEngine.graphics.renderable.models.Model;
 import mEngine.graphics.renderable.models.SubModel;
+import mEngine.util.math.vectors.VectorHelper;
 import mEngine.util.resources.ResourceHelper;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
@@ -22,8 +23,8 @@ import java.util.Map;
 
 public class ModelHelper {
 
-    private static Map<String, Model> loadedModels = new HashMap<String, Model>();
-    private static Map<String, Material3D> loadedMaterials = new HashMap<String, Material3D>();
+    private static Map<String, Model> loadedModels = new HashMap<>();
+    private static Map<String, Material3D> loadedMaterials = new HashMap<>();
 
     /**
      * Loads a model into loadedModels.
@@ -100,7 +101,9 @@ public class ModelHelper {
                         uvIndices = new Vector3f(1, 1, 1);
                     } else uvIndices = new Vector3f(1, 1, 1);
 
-                    currentSubModel.faces.add(new Face(vertexIndices, normalIndices, uvIndices));
+                    currentSubModel.faces.add(new Face(VectorHelper.subtractVectorAndFloat(vertexIndices, 1),
+                      VectorHelper.subtractVectorAndFloat(normalIndices, 1),
+                      VectorHelper.subtractVectorAndFloat(uvIndices, 1)));
 
                 }
 

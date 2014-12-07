@@ -18,12 +18,12 @@ import java.util.List;
 
 public class RenderQueue {
 
-    public List<LightSource> lightSources = new ArrayList<LightSource>();
+    public List<LightSource> lightSources = new ArrayList<>();
     public Camera camera;
     private Skybox skybox;
-    private List<ModuleRenderable3D> modelQueue = new ArrayList<ModuleRenderable3D>();
-    private List<Particle> particleQueue = new ArrayList<Particle>();
-    private List<GUIElement> guiQueue = new ArrayList<GUIElement>();
+    private List<ModuleRenderable3D> modelQueue = new ArrayList<>();
+    private List<Particle> particleQueue = new ArrayList<>();
+    private List<GUIElement> guiQueue = new ArrayList<>();
 
     /**
      * Sets the active camera.

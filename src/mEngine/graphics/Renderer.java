@@ -325,68 +325,69 @@ public class Renderer {
     public static void renderObject3D(List<Vector3f> vertices, List<Vector3f> normals, List<Vector2f> uvs, Material3D material, int mode, float emissiveLightStrength) {
 
         ShaderHelper.useShader("lighting");
+        int shader = ShaderHelper.shaderPrograms.get("lighting");
 
         if (GraphicsController.isBlackAndWhite)
-            glUniform4f(glGetUniformLocation(ShaderHelper.shaderPrograms.get("lighting"), "color"), 1, 1, 1, 1);
-        glUniform1i(glGetUniformLocation(ShaderHelper.shaderPrograms.get("lighting"), "lightSourceCount"), currentRenderQueue.lightSources.size());
+            glUniform4f(glGetUniformLocation(shader, "color"), 1, 1, 1, 1);
+        glUniform1i(glGetUniformLocation(shader, "lightSourceCount"), currentRenderQueue.lightSources.size());
         emissiveLightStrength = (float) MathHelper.clamp(emissiveLightStrength, 0, 1);
-        glUniform1f(glGetUniformLocation(ShaderHelper.shaderPrograms.get("lighting"), "emissiveLightStrength"), emissiveLightStrength);
+        glUniform1f(glGetUniformLocation(shader, "emissiveLightStrength"), emissiveLightStrength);
         Vector3f cameraPosition = currentRenderQueue.camera.position;
-        glUniform3f(glGetUniformLocation(ShaderHelper.shaderPrograms.get("lighting"), "cameraPosition"), cameraPosition.x, cameraPosition.y, cameraPosition.z);
+        glUniform3f(glGetUniformLocation(shader, "cameraPosition"), cameraPosition.x, cameraPosition.y, cameraPosition.z);
 
-        glUniform1f(glGetUniformLocation(ShaderHelper.shaderPrograms.get("lighting"), "materialShininess"), material.specularHighlightStrength);
-        glUniform1i(glGetUniformLocation(ShaderHelper.shaderPrograms.get("lighting"), "materialType"), material.type);
-        glUniform1f(glGetUniformLocation(ShaderHelper.shaderPrograms.get("lighting"), "materialTransparency"), material.color.a);
+        glUniform1f(glGetUniformLocation(shader, "materialShininess"), material.specularHighlightStrength);
+        glUniform1i(glGetUniformLocation(shader, "materialType"), material.type);
+        glUniform1f(glGetUniformLocation(shader, "materialTransparency"), material.color.a);
 
         Vector3f ambientReflectivity = material.ambientReflectivity;
-        glUniform3f(glGetUniformLocation(ShaderHelper.shaderPrograms.get("lighting"), "reflectionAssets[0]"), ambientReflectivity.x, ambientReflectivity.y, ambientReflectivity.z);
+        glUniform3f(glGetUniformLocation(shader, "reflectionAssets[0]"), ambientReflectivity.x, ambientReflectivity.y, ambientReflectivity.z);
 
         Vector3f diffuseReflectivity = material.diffuseReflectivity;
-        glUniform3f(glGetUniformLocation(ShaderHelper.shaderPrograms.get("lighting"), "reflectionAssets[1]"), diffuseReflectivity.x, diffuseReflectivity.y, diffuseReflectivity.z);
+        glUniform3f(glGetUniformLocation(shader, "reflectionAssets[1]"), diffuseReflectivity.x, diffuseReflectivity.y, diffuseReflectivity.z);
 
         Vector3f specularReflectivity = material.specularReflectivity;
-        glUniform3f(glGetUniformLocation(ShaderHelper.shaderPrograms.get("lighting"), "reflectionAssets[2]"), specularReflectivity.x, specularReflectivity.y, specularReflectivity.z);
+        glUniform3f(glGetUniformLocation(shader, "reflectionAssets[2]"), specularReflectivity.x, specularReflectivity.y, specularReflectivity.z);
 
         for (int count = 0; count < currentRenderQueue.lightSources.size(); count++) {
 
             LightSource lightSource = currentRenderQueue.lightSources.get(count);
 
-            Vector3f lightPosition = lightSource.position;
-            glUniform3f(glGetUniformLocation(ShaderHelper.shaderPrograms.get("lighting"), "lightPositions[" + count + "]"), lightPosition.x, lightPosition.y, lightPosition.z);
+            Vector3f lightPosition = lightSource.parent.position;
+            glUniform3f(glGetUniformLocation(shader, "lightPositions[" + count + "]"), lightPosition.x, lightPosition.y, lightPosition.z);
 
-            Vector3f lightDirection = lightSource.direction;
-            glUniform3f(glGetUniformLocation(ShaderHelper.shaderPrograms.get("lighting"), "lightDirections[" + count + "]"), lightDirection.x, lightDirection.y, lightDirection.z);
-            glUniform1f(glGetUniformLocation(ShaderHelper.shaderPrograms.get("lighting"), "lightStrengths[" + count + "]"), lightSource.strength);
-            glUniform1i(glGetUniformLocation(ShaderHelper.shaderPrograms.get("lighting"), "specularLighting[" + count + "]"), lightSource.specularLighting);
-            glUniform1i(glGetUniformLocation(ShaderHelper.shaderPrograms.get("lighting"), "shadowThrowing[" + count + "]"), lightSource.shadowThrowing);
+            Vector3f lightDirection = lightSource.parent.percentRotation;
+            glUniform3f(glGetUniformLocation(shader, "lightDirections[" + count + "]"), lightDirection.x, lightDirection.y, lightDirection.z);
+            glUniform1f(glGetUniformLocation(shader, "lightStrengths[" + count + "]"), lightSource.color.w);
+            glUniform1i(glGetUniformLocation(shader, "specularLighting[" + count + "]"), lightSource.specularLighting);
+            glUniform1i(glGetUniformLocation(shader, "shadowThrowing[" + count + "]"), lightSource.shadowThrowing);
 
             if (GraphicsController.isBlackAndWhite) {
 
-                glUniform3f(glGetUniformLocation(ShaderHelper.shaderPrograms.get("lighting"), "lightColors[" + count + "]"), 1, 1, 1);
+                glUniform3f(glGetUniformLocation(shader, "lightColors[" + count + "]"), 1, 1, 1);
 
             } else {
 
                 Vector3f lightColor = new Vector3f(lightSource.color);
-                glUniform3f(glGetUniformLocation(ShaderHelper.shaderPrograms.get("lighting"), "lightColors[" + count + "]"), lightColor.x, lightColor.y, lightColor.z);
+                glUniform3f(glGetUniformLocation(shader, "lightColors[" + count + "]"), lightColor.x, lightColor.y, lightColor.z);
 
             }
 
             if (lightSource instanceof SpotLightSource) {
 
                 SpotLightSource spotLightSource = (SpotLightSource) lightSource;
-                glUniform1i(glGetUniformLocation(ShaderHelper.shaderPrograms.get("lighting"), "lightSourceTypes[" + count + "]"), 0);
-                glUniform1f(glGetUniformLocation(ShaderHelper.shaderPrograms.get("lighting"), "lightAngles[" + count + "]"), spotLightSource.angle);
-                glUniform1f(glGetUniformLocation(ShaderHelper.shaderPrograms.get("lighting"), "transitions[" + count + "]"), spotLightSource.transition);
+                glUniform1i(glGetUniformLocation(shader, "lightSourceTypes[" + count + "]"), 0);
+                glUniform1f(glGetUniformLocation(shader, "lightAngles[" + count + "]"), spotLightSource.angle);
+                glUniform1f(glGetUniformLocation(shader, "transitions[" + count + "]"), spotLightSource.transition);
 
             } else if (lightSource instanceof DirectionalLightSource) {
 
                 DirectionalLightSource directionalLightSource = (DirectionalLightSource) lightSource;
-                glUniform1i(glGetUniformLocation(ShaderHelper.shaderPrograms.get("lighting"), "lightSourceTypes[" + count + "]"), 1);
-                glUniform1f(glGetUniformLocation(ShaderHelper.shaderPrograms.get("lighting"), "lightRadii[" + count + "]"), directionalLightSource.radius);
+                glUniform1i(glGetUniformLocation(shader, "lightSourceTypes[" + count + "]"), 1);
+                glUniform1f(glGetUniformLocation(shader, "lightRadii[" + count + "]"), directionalLightSource.radius);
 
             } else {
 
-                glUniform1i(glGetUniformLocation(ShaderHelper.shaderPrograms.get("lighting"), "lightSourceTypes[" + count + "]"), 2);
+                glUniform1i(glGetUniformLocation(shader, "lightSourceTypes[" + count + "]"), 2);
 
             }
 
@@ -447,7 +448,7 @@ public class Renderer {
         glDeleteBuffers(vboTextureHandle);
 
         if (GraphicsController.isBlackAndWhite)
-            glUniform4f(glGetUniformLocation(ShaderHelper.shaderPrograms.get("lighting"), "color"), 0, 0, 0, 0);
+            glUniform4f(glGetUniformLocation(shader, "color"), 0, 0, 0, 0);
 
         Material.release();
 
@@ -466,69 +467,70 @@ public class Renderer {
     public static void renderObject3D(int displayListIndex, Vector3f modelPosition, Vector3f modelRotation, Material3D material, float emissiveLightStrength) {
 
         ShaderHelper.useShader("lighting");
+        int shader = ShaderHelper.shaderPrograms.get("lighting");
 
         if (GraphicsController.isBlackAndWhite || !material.hasTexture())
-            glUniform4f(glGetUniformLocation(ShaderHelper.shaderPrograms.get("lighting"), "color"), 1, 1, 1, 1);
-        glUniform1i(glGetUniformLocation(ShaderHelper.shaderPrograms.get("lighting"), "lightSourceCount"), currentRenderQueue.lightSources.size());
+            glUniform4f(glGetUniformLocation(shader, "color"), 1, 1, 1, 1);
+        glUniform1i(glGetUniformLocation(shader, "lightSourceCount"), currentRenderQueue.lightSources.size());
         emissiveLightStrength = (float) MathHelper.clamp(emissiveLightStrength, 0, 1);
-        glUniform1f(glGetUniformLocation(ShaderHelper.shaderPrograms.get("lighting"), "emissiveLightStrength"), emissiveLightStrength);
+        glUniform1f(glGetUniformLocation(shader, "emissiveLightStrength"), emissiveLightStrength);
         Vector3f cameraPosition = currentRenderQueue.camera.position;
-        glUniform3f(glGetUniformLocation(ShaderHelper.shaderPrograms.get("lighting"), "cameraPosition"), cameraPosition.x, cameraPosition.y, cameraPosition.z);
-        glUniform3f(glGetUniformLocation(ShaderHelper.shaderPrograms.get("lighting"), "modelPosition"), modelPosition.x, modelPosition.y, modelPosition.z);
+        glUniform3f(glGetUniformLocation(shader, "cameraPosition"), cameraPosition.x, cameraPosition.y, cameraPosition.z);
+        glUniform3f(glGetUniformLocation(shader, "modelPosition"), modelPosition.x, modelPosition.y, modelPosition.z);
 
-        glUniform1f(glGetUniformLocation(ShaderHelper.shaderPrograms.get("lighting"), "materialShininess"), material.specularHighlightStrength);
-        glUniform1i(glGetUniformLocation(ShaderHelper.shaderPrograms.get("lighting"), "materialType"), material.type);
-        glUniform1f(glGetUniformLocation(ShaderHelper.shaderPrograms.get("lighting"), "materialTransparency"), material.color.a);
+        glUniform1f(glGetUniformLocation(shader, "materialShininess"), material.specularHighlightStrength);
+        glUniform1i(glGetUniformLocation(shader, "materialType"), material.type);
+        glUniform1f(glGetUniformLocation(shader, "materialTransparency"), material.color.a);
 
         Vector3f ambientReflectivity = material.ambientReflectivity;
-        glUniform3f(glGetUniformLocation(ShaderHelper.shaderPrograms.get("lighting"), "reflectionAssets[0]"), ambientReflectivity.x, ambientReflectivity.y, ambientReflectivity.z);
+        glUniform3f(glGetUniformLocation(shader, "reflectionAssets[0]"), ambientReflectivity.x, ambientReflectivity.y, ambientReflectivity.z);
 
         Vector3f diffuseReflectivity = material.diffuseReflectivity;
-        glUniform3f(glGetUniformLocation(ShaderHelper.shaderPrograms.get("lighting"), "reflectionAssets[1]"), diffuseReflectivity.x, diffuseReflectivity.y, diffuseReflectivity.z);
+        glUniform3f(glGetUniformLocation(shader, "reflectionAssets[1]"), diffuseReflectivity.x, diffuseReflectivity.y, diffuseReflectivity.z);
 
         Vector3f specularReflectivity = material.specularReflectivity;
-        glUniform3f(glGetUniformLocation(ShaderHelper.shaderPrograms.get("lighting"), "reflectionAssets[2]"), specularReflectivity.x, specularReflectivity.y, specularReflectivity.z);
+        glUniform3f(glGetUniformLocation(shader, "reflectionAssets[2]"), specularReflectivity.x, specularReflectivity.y, specularReflectivity.z);
 
         for (int count = 0; count < currentRenderQueue.lightSources.size(); count++) {
 
             LightSource lightSource = currentRenderQueue.lightSources.get(count);
 
-            Vector3f lightPosition = lightSource.position;
-            glUniform3f(glGetUniformLocation(ShaderHelper.shaderPrograms.get("lighting"), "lightPositions[" + count + "]"), lightPosition.x, lightPosition.y, lightPosition.z);
+            Vector3f lightPosition = lightSource.parent.position;
+            glUniform3f(glGetUniformLocation(shader, "lightPositions[" + count + "]"), lightPosition.x, lightPosition.y, lightPosition.z);
 
-            Vector3f lightDirection = lightSource.direction;
-            glUniform3f(glGetUniformLocation(ShaderHelper.shaderPrograms.get("lighting"), "lightDirections[" + count + "]"), lightDirection.x, lightDirection.y, lightDirection.z);
-            glUniform1f(glGetUniformLocation(ShaderHelper.shaderPrograms.get("lighting"), "lightStrengths[" + count + "]"), lightSource.strength);
-            glUniform1i(glGetUniformLocation(ShaderHelper.shaderPrograms.get("lighting"), "specularLighting[" + count + "]"), lightSource.specularLighting);
-            glUniform1i(glGetUniformLocation(ShaderHelper.shaderPrograms.get("lighting"), "shadowThrowing[" + count + "]"), lightSource.shadowThrowing);
+            Vector3f lightDirection = lightSource.parent.percentRotation;
+            glUniform3f(glGetUniformLocation(shader, "lightDirections[" + count + "]"), lightDirection.x, lightDirection.y, lightDirection.z);
+            glUniform1f(glGetUniformLocation(shader, "lightStrengths[" + count + "]"), lightSource.color.w);
+            glUniform1i(glGetUniformLocation(shader, "specularLighting[" + count + "]"), lightSource.specularLighting);
+            glUniform1i(glGetUniformLocation(shader, "shadowThrowing[" + count + "]"), lightSource.shadowThrowing);
 
             if (GraphicsController.isBlackAndWhite) {
 
-                glUniform3f(glGetUniformLocation(ShaderHelper.shaderPrograms.get("lighting"), "lightColors[" + count + "]"), 1, 1, 1);
+                glUniform3f(glGetUniformLocation(shader, "lightColors[" + count + "]"), 1, 1, 1);
 
             } else {
 
                 Vector3f lightColor = new Vector3f(lightSource.color);
-                glUniform3f(glGetUniformLocation(ShaderHelper.shaderPrograms.get("lighting"), "lightColors[" + count + "]"), lightColor.x, lightColor.y, lightColor.z);
+                glUniform3f(glGetUniformLocation(shader, "lightColors[" + count + "]"), lightColor.x, lightColor.y, lightColor.z);
 
             }
 
             if (lightSource instanceof SpotLightSource) {
 
                 SpotLightSource spotLightSource = (SpotLightSource) lightSource;
-                glUniform1i(glGetUniformLocation(ShaderHelper.shaderPrograms.get("lighting"), "lightSourceTypes[" + count + "]"), 0);
-                glUniform1f(glGetUniformLocation(ShaderHelper.shaderPrograms.get("lighting"), "lightAngles[" + count + "]"), spotLightSource.angle);
-                glUniform1f(glGetUniformLocation(ShaderHelper.shaderPrograms.get("lighting"), "transitions[" + count + "]"), spotLightSource.transition);
+                glUniform1i(glGetUniformLocation(shader, "lightSourceTypes[" + count + "]"), 0);
+                glUniform1f(glGetUniformLocation(shader, "lightAngles[" + count + "]"), spotLightSource.angle);
+                glUniform1f(glGetUniformLocation(shader, "transitions[" + count + "]"), spotLightSource.transition);
 
             } else if (lightSource instanceof DirectionalLightSource) {
 
                 DirectionalLightSource directionalLightSource = (DirectionalLightSource) lightSource;
-                glUniform1i(glGetUniformLocation(ShaderHelper.shaderPrograms.get("lighting"), "lightSourceTypes[" + count + "]"), 1);
-                glUniform1f(glGetUniformLocation(ShaderHelper.shaderPrograms.get("lighting"), "lightRadii[" + count + "]"), directionalLightSource.radius);
+                glUniform1i(glGetUniformLocation(shader, "lightSourceTypes[" + count + "]"), 1);
+                glUniform1f(glGetUniformLocation(shader, "lightRadii[" + count + "]"), directionalLightSource.radius);
 
             } else {
 
-                glUniform1i(glGetUniformLocation(ShaderHelper.shaderPrograms.get("lighting"), "lightSourceTypes[" + count + "]"), 2);
+                glUniform1i(glGetUniformLocation(shader, "lightSourceTypes[" + count + "]"), 2);
 
             }
 
@@ -547,7 +549,7 @@ public class Renderer {
         glPopMatrix();
 
         if (GraphicsController.isBlackAndWhite || !material.hasTexture())
-            glUniform4f(glGetUniformLocation(ShaderHelper.shaderPrograms.get("lighting"), "color"), 0, 0, 0, 0);
+            glUniform4f(glGetUniformLocation(shader, "color"), 0, 0, 0, 0);
 
         Material.release();
 

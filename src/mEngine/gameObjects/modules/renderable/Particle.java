@@ -28,7 +28,6 @@ public class Particle extends ModuleRenderable3D {
     public List<ParticleComponent> components = new ArrayList<ParticleComponent>();
     String textureName;
     Texture texture;
-    boolean isTextureThere = true;
     boolean[] displayListFactors = new boolean[]{false, false};
     int displayListIndex;
 

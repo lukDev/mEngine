@@ -14,12 +14,11 @@ import mEngine.graphics.renderable.models.Model;
 import mEngine.graphics.renderable.models.SubModel;
 import mEngine.util.math.MathHelper;
 import mEngine.util.math.vectors.VectorHelper;
+import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 
 public class Terrain extends ModuleRenderable3D {
 
@@ -27,76 +26,32 @@ public class Terrain extends ModuleRenderable3D {
     private Vector3f size;
     private float[][] heightmap;
 
-    public Terrain(Vector3f size, boolean structured) {
-
-        this.size = size;
-        heightmap = new float[(int) size.x][(int) size.z];
-
-        Random rand = new Random();
-
-        if (structured) {
-
-            for (int x = 0; x < size.x; x++) {
-
-                for (int z = 0; z < size.z; z++) {
-
-                    setHeight(x, z, (float) rand.nextInt(11) / 1000);
-
-                }
-
-            }
-
-        } else {
-
-            for (int x = 0; x < size.x; x++) {
-
-                for (int z = 0; z < size.z; z++) {
-
-                    setHeight(x, z, 0);
-
-                }
-
-            }
-
-        }
-
-        material = new Material3D();
-
-    }
-
     public Terrain(float[][] heightmap, float maxHeight) {
-
         this.heightmap = heightmap;
         size = new Vector3f(heightmap.length, maxHeight, heightmap[0].length);
         material = new Material3D();
-
     }
 
     @Override
     public void onCreation(GameObject obj) {
-
         super.onCreation(obj);
         generateMesh();
-
     }
 
     public void setHeight(int x, int z, float height) {
-
         heightmap[x][z] = (float) MathHelper.clamp(height, 0, 1);
-
     }
 
-    public void generateMesh() {
+    private void generateMesh() {
 
-        List<Vector3f> vertices = new ArrayList<Vector3f>();
-        List<Face> faces = new ArrayList<Face>();
-        List<Vector3f> normals = new ArrayList<Vector3f>();
-        List<Vector2f> uvs = new ArrayList<Vector2f>();
+        ArrayList<Vector3f> vertices = new ArrayList<>();
+        ArrayList<Face> faces = new ArrayList<>();
+        ArrayList<Vector3f> normals = new ArrayList<>();
+        ArrayList<Vector2f> uvs = new ArrayList<>();
 
-        int i = 0; //Counts all vertices
+        /*int i = 0; //Counts all vertices
 
         for (int x = 0; x < size.x; x++) {
-
             for (int z = 0; z < size.z; z++) {
 
                 vertices.add(new Vector3f(x, size.y * heightmap[x][z], z));
@@ -125,9 +80,31 @@ public class Terrain extends ModuleRenderable3D {
                 i++;
 
             }
+        }*/
 
+        for (int z = 0; z < (int) size.z; z++) {
+            for (int x = 0; x < (int) size.x; x++) {
+                vertices.add(new Vector3f(x, heightmap[x][z] * size.y, z)); //Making all vertices
+                uvs.add(new Vector2f(0,//new Vector2f((float) MathHelper.clamp((float) x / size.x, 0, 1),
+                  0)); //(float) MathHelper.clamp((float) z / size.z, 0, 1)));
+
+                //Generating faces with pattern:
+                // |\--|
+                // | \ |
+                // |--\|
+                if (x < size.x - 1 && z < size.z - 1) {
+                    faces.add(new Face(
+                      new Vector3f(size.x * z + x, size.x * z + x + 1, size.x * (z + 1) + x + 1),  // \---
+                      new Vector3f(size.x * z + x, size.x * z + x + 1, size.x * (z + 1) + x + 1),  //  \ |
+                      new Vector3f(size.x * z + x, size.x * z + x + 1, size.x * (z + 1) + x + 1)));//   \|
+
+                    faces.add(new Face(
+                      new Vector3f(size.x * z + x, size.x * (z + 1) + x + 1, size.x * (z + 1) + x),  // |\
+                      new Vector3f(size.x * z + x, size.x * (z + 1) + x + 1, size.x * (z + 1) + x),  // | \
+                      new Vector3f(size.x * z + x, size.x * (z + 1) + x + 1, size.x * (z + 1) + x)));// ---\
+                }
+            }
         }
-
 
         for (Face face : faces) {
 
@@ -151,12 +128,12 @@ public class Terrain extends ModuleRenderable3D {
         }
 
         SubModel subModel = new SubModel(new Material3D());
-        subModel.vertices = (ArrayList<Vector3f>) vertices;
-        subModel.normals = (ArrayList<Vector3f>) normals;
-        subModel.uvs = (ArrayList<Vector2f>) uvs;
-        subModel.faces = (ArrayList<Face>) faces;
+        subModel.vertices = vertices;
+        subModel.normals = normals;
+        subModel.uvs = uvs;
+        subModel.faces = faces;
 
-        ArrayList<SubModel> subModels = new ArrayList<SubModel>();
+        ArrayList<SubModel> subModels = new ArrayList<>();
         subModels.add(subModel);
 
         model = new Model(subModels);
@@ -165,20 +142,14 @@ public class Terrain extends ModuleRenderable3D {
 
     @Override
     public void render() {
-
-        for (SubModel subModel : model.subModels) {
-
+        GL11.glPointSize(4);
+        for (SubModel subModel : model.subModels)
             Renderer.renderObject3D(subModel.vertices, subModel.normals, subModel.uvs, subModel.material, Renderer.RENDER_TRIANGLES, 0);
-
-        }
-
     }
 
     @Override
     public void addToRenderQueue() {
-
         Renderer.currentRenderQueue.addModel(this);
-
     }
 
 }

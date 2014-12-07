@@ -12,6 +12,11 @@ public abstract class ModuleRenderable3D extends ModuleRenderable {
 
     public Material3D material;
 
+    public ModuleRenderable3D setMaterial(Material3D material) {
+        this.material = material;
+        return this;
+    }
+
     public abstract void render();
 
     public abstract void addToRenderQueue();

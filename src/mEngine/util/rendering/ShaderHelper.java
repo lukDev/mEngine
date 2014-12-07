@@ -19,7 +19,7 @@ import static org.lwjgl.opengl.GL20.*;
 
 public class ShaderHelper {
 
-    public static Map<String, Integer> shaderPrograms = new HashMap<String, Integer>();
+    public static Map<String, Integer> shaderPrograms = new HashMap<>();
 
     /**
      * Adds a shader to the list.
