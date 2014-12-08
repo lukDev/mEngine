@@ -25,8 +25,17 @@ public class RenderModule extends ModuleRenderable3D {
     public Model model;
     public String modelFileName;
     Vector3f offset;
-    boolean[] displayListFactors = new boolean[]{false, false};
+    boolean isStatic, displayListsGenerated;
     int displayListIndex;
+
+    public RenderModule(Model model) {
+        this(model, true);
+    }
+
+    public RenderModule(Model model, boolean isStatic) {
+        this.model = model;
+        this.isStatic = isStatic;
+    }
 
     public RenderModule(String modelFileName) {
         this(modelFileName, true);
@@ -38,7 +47,7 @@ public class RenderModule extends ModuleRenderable3D {
 
     public RenderModule(String modelFileName, boolean isStatic, Vector3f offset) {
         this.modelFileName = modelFileName;
-        displayListFactors[0] = isStatic;
+        this.isStatic = isStatic;
         this.offset = offset;
     }
 
@@ -46,7 +55,7 @@ public class RenderModule extends ModuleRenderable3D {
 
         super.onCreation(obj);
 
-        model = ModelHelper.getModel(modelFileName);
+        if (model == null) model = ModelHelper.getModel(modelFileName);
 
         Vector3f vert = model.getSize();
         vert.x /= -2; // \
@@ -65,11 +74,11 @@ public class RenderModule extends ModuleRenderable3D {
           .filter(subModel -> subModel.material.hasTexture() && subModel.material.getTexture() == null)
           .forEach(subModel -> subModel.material.setTextureFromName());
 
-        if (displayListFactors[0] && !displayListFactors[1]) {
+        if (isStatic && !displayListsGenerated) {
 
-            List<Vector3f> renderVertices = new ArrayList<Vector3f>();
-            List<Vector3f> renderNormals = new ArrayList<Vector3f>();
-            List<Vector2f> renderUVs = new ArrayList<Vector2f>();
+            List<Vector3f> renderVertices = new ArrayList<>();
+            List<Vector3f> renderNormals = new ArrayList<>();
+            List<Vector2f> renderUVs = new ArrayList<>();
 
             displayListIndex = Renderer.displayListCounter;
 
@@ -110,11 +119,11 @@ public class RenderModule extends ModuleRenderable3D {
 
             }
 
-            displayListFactors[1] = true;
+            displayListsGenerated = true;
 
         }
 
-        if (displayListFactors[0] && displayListFactors[1]) {
+        if (isStatic && displayListsGenerated) {
 
             for (int i = 0; i < model.subModels.size(); i++) {
 
@@ -130,9 +139,9 @@ public class RenderModule extends ModuleRenderable3D {
 
             for (SubModel subModel : model.subModels) {
 
-                renderVertices = new ArrayList<Vector3f>();
-                renderNormals = new ArrayList<Vector3f>();
-                renderUVs = new ArrayList<Vector2f>();
+                renderVertices = new ArrayList<>();
+                renderNormals = new ArrayList<>();
+                renderUVs = new ArrayList<>();
 
                 for (Face face : subModel.faces) {
 

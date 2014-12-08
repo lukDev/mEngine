@@ -13,8 +13,6 @@ import mEngine.gameObjects.modules.Module;
 import mEngine.gameObjects.modules.audio.AudioListener;
 import mEngine.gameObjects.modules.controls.ControllerManual;
 import mEngine.gameObjects.modules.gui.GUIElement;
-import mEngine.gameObjects.modules.interaction.AsyncInteraction;
-import mEngine.gameObjects.modules.interaction.InteractionModule;
 import mEngine.gameObjects.modules.physics.MovementModule;
 import mEngine.gameObjects.modules.physics.PhysicsModule;
 import mEngine.gameObjects.modules.renderable.Camera;
@@ -28,14 +26,11 @@ import mEngine.graphics.renderable.LoadingScreen;
 import mEngine.graphics.renderable.materials.Material3D;
 import mEngine.util.input.Input;
 import mEngine.util.input.InputEventType;
-import mEngine.util.math.vectors.Matrix3f;
-import mEngine.util.math.vectors.VectorHelper;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 import org.lwjgl.util.vector.Vector4f;
-import org.newdawn.slick.Color;
 
 import java.util.Random;
 
@@ -71,7 +66,7 @@ public class Main {
         Input.assignInputEvent("screenshot", true, InputEventType.ACTIVATED, Keyboard.KEY_F2);
 
         //GameObject Time ;)
-        new GameObject(new Vector3f(0, 20, 0), new Vector3f(0, 0, 0))
+        new GameObject(new Vector3f(0, 5, 0), new Vector3f(0, 0, 0))
           .addModule(new MovementModule())
           .addModule(new RenderModule("sphere"))
           .addModule(
@@ -140,7 +135,11 @@ public class Main {
         }
 
         new GameObject(new Vector3f(), new Vector3f())
-          .addModule(new Terrain(heightmap, 40).setMaterial((Material3D) new Material3D().setTextureName("loadingScreen").setColor(Color.red)))
+          .addModule(new Terrain(heightmap, 40).setMaterial((Material3D) new Material3D().setTextureName("background")))
+          .createModules();
+
+        new GameObject(new Vector3f(0, 10, 0), new Vector3f())
+          .addModule(new SpotLightSource(new Vector4f(255, 255, 255, 40)))
           .createModules();
 
         /*new GameObject(new Vector3f(0, 0, 0), new Vector3f())
@@ -169,7 +168,7 @@ public class Main {
                 .createModules();*/
 
         //Spot Lights
-        new GameObject(new Vector3f(0, 20, 40), new Vector3f(0, 180, 0))
+        /*new GameObject(new Vector3f(0, 20, 40), new Vector3f(0, 180, 0))
           .addModule(new RenderModule("sphere2"))
           .addModule(new SpotLightSource(new Vector4f(255, 0, 0, 400), 25)
             .setSpecularLighting(false))
@@ -374,7 +373,7 @@ public class Main {
         new GameObject(new Vector3f(-30, 25, -30), new Vector3f())
           .addModule(new RenderModule("sphere2"))
           .addModule(new SpotLightSource(new Vector4f(255, 0, 0, 100)))
-          .createModules();
+          .createModules();*/
 
         GameController.setLoading(false);
 

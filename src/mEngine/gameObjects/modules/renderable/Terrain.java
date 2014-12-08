@@ -7,26 +7,24 @@
 package mEngine.gameObjects.modules.renderable;
 
 import mEngine.gameObjects.GameObject;
-import mEngine.graphics.Renderer;
 import mEngine.graphics.renderable.materials.Material3D;
 import mEngine.graphics.renderable.models.Face;
 import mEngine.graphics.renderable.models.Model;
 import mEngine.graphics.renderable.models.SubModel;
 import mEngine.util.math.MathHelper;
 import mEngine.util.math.vectors.VectorHelper;
-import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 
 import java.util.ArrayList;
 
-public class Terrain extends ModuleRenderable3D {
+public class Terrain extends RenderModule {
 
-    public Model model;
     private Vector3f size;
     private float[][] heightmap;
 
     public Terrain(float[][] heightmap, float maxHeight) {
+        super(new Model());
         this.heightmap = heightmap;
         size = new Vector3f(heightmap.length, maxHeight, heightmap[0].length);
         material = new Material3D();
@@ -85,8 +83,8 @@ public class Terrain extends ModuleRenderable3D {
         for (int z = 0; z < (int) size.z; z++) {
             for (int x = 0; x < (int) size.x; x++) {
                 vertices.add(new Vector3f(x, heightmap[x][z] * size.y, z)); //Making all vertices
-                uvs.add(new Vector2f(0,//new Vector2f((float) MathHelper.clamp((float) x / size.x, 0, 1),
-                  0)); //(float) MathHelper.clamp((float) z / size.z, 0, 1)));
+                uvs.add(new Vector2f(new Vector2f((float) MathHelper.clamp((float) x / size.x, 0, 1),
+                  (float) MathHelper.clamp((float) z / size.z, 0, 1))));
 
                 //Generating faces with pattern:
                 // |\--|
@@ -94,14 +92,14 @@ public class Terrain extends ModuleRenderable3D {
                 // |--\|
                 if (x < size.x - 1 && z < size.z - 1) {
                     faces.add(new Face(
-                      new Vector3f(size.x * z + x, size.x * z + x + 1, size.x * (z + 1) + x + 1),  // \---
-                      new Vector3f(size.x * z + x, size.x * z + x + 1, size.x * (z + 1) + x + 1),  //  \ |
-                      new Vector3f(size.x * z + x, size.x * z + x + 1, size.x * (z + 1) + x + 1)));//   \|
+                      new Vector3f(size.x * z + x, size.x * (z + 1) + x + 1, size.x * z + x + 1),  // \---   1  3
+                      new Vector3f(size.x * z + x, size.x * (z + 1) + x + 1, size.x * z + x + 1),  //  \ |
+                      new Vector3f(size.x * z + x, size.x * (z + 1) + x + 1, size.x * z + x + 1)));//   \|      2
 
                     faces.add(new Face(
-                      new Vector3f(size.x * z + x, size.x * (z + 1) + x + 1, size.x * (z + 1) + x),  // |\
-                      new Vector3f(size.x * z + x, size.x * (z + 1) + x + 1, size.x * (z + 1) + x),  // | \
-                      new Vector3f(size.x * z + x, size.x * (z + 1) + x + 1, size.x * (z + 1) + x)));// ---\
+                      new Vector3f(size.x * z + x, size.x * (z + 1) + x, size.x * (z + 1) + x + 1),  // |\   1
+                      new Vector3f(size.x * z + x, size.x * (z + 1) + x, size.x * (z + 1) + x + 1),  // | \
+                      new Vector3f(size.x * z + x, size.x * (z + 1) + x, size.x * (z + 1) + x + 1)));// ---\ 2  3
                 }
             }
         }
@@ -138,18 +136,6 @@ public class Terrain extends ModuleRenderable3D {
 
         model = new Model(subModels);
 
-    }
-
-    @Override
-    public void render() {
-        GL11.glPointSize(4);
-        for (SubModel subModel : model.subModels)
-            Renderer.renderObject3D(subModel.vertices, subModel.normals, subModel.uvs, subModel.material, Renderer.RENDER_TRIANGLES, 0);
-    }
-
-    @Override
-    public void addToRenderQueue() {
-        Renderer.currentRenderQueue.addModel(this);
     }
 
 }
