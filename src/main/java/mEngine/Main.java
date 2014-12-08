@@ -4,7 +4,7 @@
  * All rights reserved.
  */
 
-package mEngine.test;
+package mEngine;
 
 import mEngine.core.GameController;
 import mEngine.core.ObjectController;
