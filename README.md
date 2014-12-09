@@ -1,4 +1,4 @@
-mengine <a href="http://84.201.32.134:8111/viewType.html?buildTypeId=mEngine_BuildDefault&guest=1"><img src="http://84.201.32.134:8111/app/rest/builds/buildType:(id:mEngine_BuildDefault)/statusIcon"/></a>
+mEngine <img src="https://codeship.com/projects/e996a160-00b5-0132-e808-769b57c2fa46/status?branch=master"/>
 =====
 mEngine is a 3D and 2D hybrid game engine written in java that is designed to allow for easy, fast, but still high quality game development.
 
