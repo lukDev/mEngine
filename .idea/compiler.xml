@@ -25,5 +25,8 @@
         <module name="mEngine" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="mEngine" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>

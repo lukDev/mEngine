@@ -1,7 +1,7 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="mEngine [Run]" type="Application" factoryName="Application">
+  <configuration default="false" name="mEngine [Run][Terrain]" type="Application" factoryName="Application">
     <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-    <option name="MAIN_CLASS_NAME" value="mEngine.development.Main" />
+    <option name="MAIN_CLASS_NAME" value="mEngine.development.SceneTerrain" />
     <option name="VM_PARAMETERS" value="-Djava.library.path=lib/lwjgl/native/windows" />
     <option name="PROGRAM_PARAMETERS" value="" />
     <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
