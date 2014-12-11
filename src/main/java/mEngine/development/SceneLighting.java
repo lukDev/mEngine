@@ -109,38 +109,27 @@ public class SceneLighting {
                       float modifier = (float) Math.toRadians(0.083);
 
                       for (int i = 0; i < 250; i++) {
-
                           spotLightSource.angle += modifier;
-
                           Thread.sleep(10);
-
                       }
 
                       Thread.sleep(200);
 
                       for (int i = 0; i < 500; i++) {
-
                           spotLightSource.angle -= modifier;
-
                           Thread.sleep(10);
-
                       }
 
                       Thread.sleep(200);
 
                       for (int i = 0; i < 250; i++) {
-
                           spotLightSource.angle += modifier;
-
                           Thread.sleep(10);
-
                       }
 
                   } catch (InterruptedException e) {
-
                       e.printStackTrace();
                       System.exit(1);
-
                   }
 
               }
@@ -174,21 +163,15 @@ public class SceneLighting {
                       );
 
                       for (int i = 0; i < 200; i++) {
-
                           parent.percentRotation = yAxisRotationMatrix.multiplyByVector(parent.percentRotation);
-
                           Thread.sleep(10);
-
                       }
 
                       Thread.sleep(200);
 
                       for (int i = 0; i < 700; i++) {
-
                           parent.percentRotation = zAxisRotationMatrix.multiplyByVector(parent.percentRotation);
-
                           Thread.sleep(10);
-
                       }
 
                       Thread.sleep(200);
@@ -200,18 +183,13 @@ public class SceneLighting {
                       );
 
                       for (int i = 0; i < 200; i++) {
-
                           parent.percentRotation = yAxisRotationMatrix.multiplyByVector(parent.percentRotation);
-
                           Thread.sleep(10);
-
                       }
 
                   } catch (InterruptedException e) {
-
                       e.printStackTrace();
                       System.exit(1);
-
                   }
 
               }

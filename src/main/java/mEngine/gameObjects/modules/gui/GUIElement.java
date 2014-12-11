@@ -22,7 +22,7 @@ import java.util.List;
 public class GUIElement extends ModuleRenderable {
 
     public Material2D material;
-    public List<GUIModule> components = new ArrayList<GUIModule>();
+    public List<GUIModule> components = new ArrayList<>();
     private Vector2f position; //Values from 0 to 1
     private Vector2f size; //Values from 0 to 1
     private GUIScreen screen; //The GUI screen to display this element on
@@ -80,35 +80,22 @@ public class GUIElement extends ModuleRenderable {
         super.onUpdate();
 
         if (GUIScreenController.isScreenActive(screen) || screen == null)
-            for (GUIModule component : components)
-                component.onUpdate();
+            components.forEach(mEngine.gameObjects.modules.gui.modules.GUIModule::onUpdate);
     }
 
     @Override
     public void onSave() {
-
         super.onSave();
-        for (GUIModule component : components) {
-
-            component.onSave();
-
-        }
+        components.forEach(mEngine.gameObjects.modules.gui.modules.GUIModule::onSave);
 
         material.deleteTexture();
         material.deleteColor();
-
     }
 
     @Override
     public void onLoad() {
-
         super.onLoad();
-        for (GUIModule component : components) {
-
-            component.onLoad();
-
-        }
-
+        components.forEach(mEngine.gameObjects.modules.gui.modules.GUIModule::onLoad);
     }
 
     public GUIElement setGUIScreen(GUIScreen screen) {
@@ -117,11 +104,9 @@ public class GUIElement extends ModuleRenderable {
     }
 
     public GUIElement addModule(GUIModule module) {
-
         components.add(module);
         module.onCreation(this);
         return this;
-
     }
 
     public GUIElement setMaterial(Material2D material) {
@@ -130,46 +115,32 @@ public class GUIElement extends ModuleRenderable {
     }
 
     public void render() {
-
         if (material.getTexture() == null && material.hasTexture())
             material.setTextureFromName();
 
-        for (GUIModule component : components) {
-            component.render();
-        }
-
+        components.forEach(mEngine.gameObjects.modules.gui.modules.GUIModule::render);
     }
 
     @Override
     public void addToRenderQueue() {
-
         if (GUIScreenController.isScreenActive(screen) || screen == null)
             Renderer.currentRenderQueue.addGUIElement(this);
-
     }
 
     public Vector2f getSize() {
-
         return new Vector2f(size.x * Display.getWidth(), size.y * Display.getHeight());
-
     }
 
     public void setSize(Vector2f sizeInPixels) {
-
         size = new Vector2f(sizeInPixels.x / Display.getWidth(), sizeInPixels.y / Display.getHeight());
-
     }
 
     public Vector2f getPosition() {
-
         return new Vector2f(position.x * Display.getWidth(), position.y * Display.getHeight());
-
     }
 
     public void setPosition(Vector2f positionInPixels) {
-
         position = new Vector2f(positionInPixels.x / Display.getWidth(), positionInPixels.y / Display.getHeight());
-
     }
 
 }

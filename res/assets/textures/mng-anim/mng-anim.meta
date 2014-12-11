@@ -1,5 +1,5 @@
 r true
-f mng-anim/0 1000
+f mng-anim/0 10
 f mng-anim/1 10
 f mng-anim/2 10
 f mng-anim/3 10
@@ -33,7 +33,7 @@ f mng-anim/30 10
 f mng-anim/31 10
 f mng-anim/32 10
 f mng-anim/33 10
-f mng-anim/34 1000
+f mng-anim/34 4000
 f mng-anim/35 10
 f mng-anim/36 10
 f mng-anim/37 10

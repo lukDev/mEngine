@@ -18,7 +18,7 @@ public class GUIQuad extends GUIModule {
 
     public GUIQuad() {
 
-        uvs = new ArrayList<Vector2f>();
+        uvs = new ArrayList<>();
         uvs.add(new Vector2f(0, 1));
         uvs.add(new Vector2f(1, 1));
         uvs.add(new Vector2f(1, 0));

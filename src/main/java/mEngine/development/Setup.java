@@ -37,7 +37,7 @@ class Setup {
 
     static void setupDefaults() {
 
-        standardLoadingScreen = new LoadingScreen("checkerPattern");
+        standardLoadingScreen = new LoadingScreen("loadingScreen");
 
         setLoadingScreen(standardLoadingScreen);
         Mouse.setGrabbed(true);
