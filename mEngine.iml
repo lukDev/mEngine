@@ -14,10 +14,34 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" scope="TEST" name="JUnit" level="project" />
-    <orderEntry type="library" name="JBullet" level="project" />
-    <orderEntry type="library" name="Slick2D" level="project" />
-    <orderEntry type="library" name="SoundSystem" level="project" />
-    <orderEntry type="library" name="LWJGL" level="project" />
+    <orderEntry type="library" name="Maven: org.lwjgl.lwjgl:lwjgl:2.9.1" level="project" />
+    <orderEntry type="library" name="Maven: org.lwjgl.lwjgl:lwjgl-platform:natives-windows:2.9.1" level="project" />
+    <orderEntry type="library" name="Maven: org.lwjgl.lwjgl:lwjgl-platform:natives-linux:2.9.1" level="project" />
+    <orderEntry type="library" name="Maven: org.lwjgl.lwjgl:lwjgl-platform:natives-osx:2.9.1" level="project" />
+    <orderEntry type="library" name="Maven: net.java.jinput:jinput:2.0.5" level="project" />
+    <orderEntry type="library" name="Maven: net.java.jutils:jutils:1.0.0" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: net.java.jinput:jinput-platform:natives-linux:2.0.5" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: net.java.jinput:jinput-platform:natives-windows:2.0.5" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: net.java.jinput:jinput-platform:natives-osx:2.0.5" level="project" />
+    <orderEntry type="library" name="Maven: org.lwjgl.lwjgl:lwjgl_util:2.9.1" level="project" />
+    <orderEntry type="library" name="Maven: org.slick2d:slick2d-core:1.0.1" level="project" />
+    <orderEntry type="module-library">
+      <library name="Maven: javax.jnlp:jnlp-api:5.0">
+        <CLASSES>
+          <root url="jar://C:/Program Files/Java/jdk1.8.0_05/jre/lib/javaws.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="library" name="Maven: org.jcraft:jorbis:0.0.17" level="project" />
+    <orderEntry type="library" name="Maven: java3d:vecmath:1.3.1" level="project" />
+    <orderEntry type="library" name="Maven: cz.advel.jbullet:jbullet:20101010-1" level="project" />
+    <orderEntry type="library" name="Maven: com.paulscode:soundsystem:1.0.0" level="project" />
+    <orderEntry type="library" name="Maven: com.paulscode:codec-wav:1.0.0" level="project" />
+    <orderEntry type="library" name="Maven: com.paulscode:library-java-sound:1.0.0" level="project" />
+    <orderEntry type="library" name="Maven: com.paulscode:library-lwjgl-openal:1.0.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: junit:junit:4.12" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.hamcrest:hamcrest-core:1.3" level="project" />
   </component>
 </module>
