@@ -33,7 +33,7 @@
                 <executions>
                     <execution>
                         <id>soundsystem</id>
-                        <phase>initialize</phase>
+                        <phase>install</phase>
                         <goals>
                             <goal>install-file</goal>
                         </goals>
@@ -48,7 +48,7 @@
 
                     <execution>
                         <id>codec-wav</id>
-                        <phase>initialize</phase>
+                        <phase>install</phase>
                         <goals>
                             <goal>install-file</goal>
                         </goals>
@@ -63,7 +63,7 @@
 
                     <execution>
                         <id>library-java-sound</id>
-                        <phase>initialize</phase>
+                        <phase>install</phase>
                         <goals>
                             <goal>install-file</goal>
                         </goals>
@@ -78,7 +78,7 @@
 
                     <execution>
                         <id>library-lwjgl-openal</id>
-                        <phase>initialize</phase>
+                        <phase>install</phase>
                         <goals>
                             <goal>install-file</goal>
                         </goals>
