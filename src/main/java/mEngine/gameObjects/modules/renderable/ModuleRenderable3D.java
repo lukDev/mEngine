@@ -10,7 +10,7 @@ import mEngine.graphics.renderable.materials.Material3D;
 
 public abstract class ModuleRenderable3D extends ModuleRenderable {
 
-    public Material3D material;
+    public transient Material3D material;
 
     public ModuleRenderable3D setMaterial(Material3D material) {
         this.material = material;

@@ -50,7 +50,7 @@ public class RenderHelper {
 
         if (camera != null) {
 
-            vector = VectorHelper.subtractVectors(vector, camera.position);
+            vector = VectorHelper.subtractVectors(vector, camera.parent.position);
             vector = VectorHelper.normalizeVector(vector);
 
             float fov = (float) Math.toRadians(PreferenceHelper.getFloat("fieldOfView"));
@@ -83,10 +83,10 @@ public class RenderHelper {
 
             rightUpperCorner = xAxisRotationMatrix.multiplyByVector(rightUpperCorner);
 
-            Vector3f alphaIndicator = new Vector3f(camera.percentRotation.x, 0, camera.percentRotation.z);
+            Vector3f alphaIndicator = new Vector3f(camera.parent.percentRotation.x, 0, camera.parent.percentRotation.z);
             float alpha = VectorHelper.getAngle(zAxis, alphaIndicator);
 
-            if (VectorHelper.getScalarProduct(camera.percentRotation, xAxis) < 0) alpha = -alpha;
+            if (VectorHelper.getScalarProduct(camera.parent.percentRotation, xAxis) < 0) alpha = -alpha;
 
             yAxisRotationMatrix = new Matrix3f(new Vector3f((float) Math.cos(alpha), 0, (float) Math.sin(alpha)),
               new Vector3f(0, 1, 0),
@@ -94,12 +94,12 @@ public class RenderHelper {
 
             vector = yAxisRotationMatrix.multiplyByVector(vector);
 
-            if (camera.percentRotation.y != 0) {
+            if (camera.parent.percentRotation.y != 0) {
 
-                Vector3f betaIndicator = new Vector3f(0, camera.percentRotation.y, 0);
+                Vector3f betaIndicator = new Vector3f(0, camera.parent.percentRotation.y, 0);
                 float beta = VectorHelper.getAngle(zAxis, betaIndicator);
 
-                if (VectorHelper.getScalarProduct(camera.percentRotation, yAxis) < 0) beta = -beta;
+                if (VectorHelper.getScalarProduct(camera.parent.percentRotation, yAxis) < 0) beta = -beta;
 
                 xAxisRotationMatrix = new Matrix3f(new Vector3f(1, 0, 0),
                   new Vector3f(0, (float) Math.cos(beta), -(float) Math.sin(beta)),

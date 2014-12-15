@@ -17,26 +17,22 @@ import static org.lwjgl.util.glu.GLU.gluLookAt;
 public class Camera extends ModuleRenderable {
 
     public float zoom = 0;
-    public Vector3f position;
-    public Vector3f rotation;
-    public Vector3f percentRotation;
+    private Vector3f eye;
 
     public Camera() {
-
-        position = new Vector3f();
-        rotation = new Vector3f();
-        percentRotation = new Vector3f();
-
+        super();
     }
 
     public void onUpdate() {
 
-        rotation = parent.rotation;
-        percentRotation = parent.percentRotation;
-
         if (!(Float.isNaN(parent.position.x) || Float.isNaN(parent.position.y) || Float.isNaN(parent.position.z)))
-            position = VectorHelper.sumVectors(new Vector3f[]{VectorHelper.multiplyVectorByFloat(new Vector3f(percentRotation.x, percentRotation.y, -percentRotation.z), -zoom),
-              parent.position});
+            eye = VectorHelper.sumVectors(
+                    new Vector3f[]{VectorHelper.multiplyVectorByFloat(
+                            new Vector3f(parent.percentRotation.x,
+                                    parent.percentRotation.y,
+                                    -parent.percentRotation.z),
+                            -zoom),
+                            parent.position});
 
     }
 
@@ -46,11 +42,11 @@ public class Camera extends ModuleRenderable {
 
         if (zoom == 0) {
 
-            glRotatef(rotation.x, 1, 0, 0);
-            glRotatef(rotation.y, 0, 1, 0);
-            glRotatef(rotation.z, 0, 0, 1);
+            glRotatef(parent.rotation.x, 1, 0, 0);
+            glRotatef(parent.rotation.y, 0, 1, 0);
+            glRotatef(parent.rotation.z, 0, 0, 1);
 
-            glTranslatef(-position.x, -position.y, -position.z);
+            glTranslatef(-parent.position.x, -parent.position.y, -parent.position.z);
 
         } else {
 
@@ -70,7 +66,7 @@ public class Camera extends ModuleRenderable {
 
             }
 
-            gluLookAt(position.x, position.y, position.z, parent.position.x, parent.position.y, parent.position.z, up.x, up.y, up.z);
+            gluLookAt(eye.x, eye.y, eye.z, parent.position.x, parent.position.y, parent.position.z, up.x, up.y, up.z);
 
         }
 

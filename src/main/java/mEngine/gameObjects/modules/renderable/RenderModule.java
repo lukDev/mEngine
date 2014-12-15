@@ -12,7 +12,6 @@ import mEngine.graphics.Renderer;
 import mEngine.graphics.renderable.models.Face;
 import mEngine.graphics.renderable.models.Model;
 import mEngine.graphics.renderable.models.SubModel;
-import mEngine.util.math.vectors.VectorHelper;
 import mEngine.util.rendering.ModelHelper;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
@@ -22,11 +21,10 @@ import java.util.List;
 
 public class RenderModule extends ModuleRenderable3D {
 
-    public Model model;
+    public transient Model model;
     public String modelFileName;
-    Vector3f offset;
-    boolean isStatic, displayListsGenerated;
-    int displayListIndex;
+    transient boolean isStatic, displayListsGenerated;
+    transient int displayListIndex;
 
     public RenderModule(Model model) {
         this(model, true);
@@ -42,13 +40,8 @@ public class RenderModule extends ModuleRenderable3D {
     }
 
     public RenderModule(String modelFileName, boolean isStatic) {
-        this(modelFileName, isStatic, new Vector3f());
-    }
-
-    public RenderModule(String modelFileName, boolean isStatic, Vector3f offset) {
         this.modelFileName = modelFileName;
         this.isStatic = isStatic;
-        this.offset = offset;
     }
 
     public void onCreation(GameObject obj) {
@@ -127,7 +120,7 @@ public class RenderModule extends ModuleRenderable3D {
 
             for (int i = 0; i < model.subModels.size(); i++) {
 
-                Renderer.renderObject3D(displayListIndex + i, VectorHelper.sumVectors(new Vector3f[]{parent.position, offset}), parent.rotation, model.subModels.get(i).material, 0);
+                Renderer.renderObject3D(displayListIndex + i, parent.position, parent.rotation, model.subModels.get(i).material, 0);
 
             }
 

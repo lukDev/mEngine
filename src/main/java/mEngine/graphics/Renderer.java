@@ -336,7 +336,7 @@ public class Renderer {
         glUniform1i(glGetUniformLocation(shader, "lightSourceCount"), currentRenderQueue.lightSources.size());
         emissiveLightStrength = (float) MathHelper.clamp(emissiveLightStrength, 0, 1);
         glUniform1f(glGetUniformLocation(shader, "emissiveLightStrength"), emissiveLightStrength);
-        Vector3f cameraPosition = currentRenderQueue.camera.position;
+        Vector3f cameraPosition = currentRenderQueue.camera.parent.position;
         glUniform3f(glGetUniformLocation(shader, "cameraPosition"), cameraPosition.x, cameraPosition.y, cameraPosition.z);
 
         glUniform1f(glGetUniformLocation(shader, "materialShininess"), material.specularHighlightStrength);
@@ -479,7 +479,7 @@ public class Renderer {
         glUniform1i(glGetUniformLocation(shader, "lightSourceCount"), currentRenderQueue.lightSources.size());
         emissiveLightStrength = (float) MathHelper.clamp(emissiveLightStrength, 0, 1);
         glUniform1f(glGetUniformLocation(shader, "emissiveLightStrength"), emissiveLightStrength);
-        Vector3f cameraPosition = currentRenderQueue.camera.position;
+        Vector3f cameraPosition = currentRenderQueue.camera.parent.position;
         glUniform3f(glGetUniformLocation(shader, "cameraPosition"), cameraPosition.x, cameraPosition.y, cameraPosition.z);
         glUniform3f(glGetUniformLocation(shader, "modelPosition"), modelPosition.x, modelPosition.y, modelPosition.z);
 

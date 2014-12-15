@@ -19,10 +19,10 @@ import static org.lwjgl.opengl.GL12.GL_CLAMP_TO_EDGE;
 
 public class Skybox extends ModuleRenderable3D {
 
-    private Material3D[] materials = new Material3D[6];
+    private transient Material3D[] materials = new Material3D[6];
     private String textureName;
-    private boolean displayListsCreated = false;
-    private int[] displayListIndices = new int[6];
+    private transient boolean displayListsCreated = false;
+    private transient int[] displayListIndices = new int[6];
 
     public Skybox(String fileName) {
 

@@ -23,7 +23,7 @@ public class TestTimer {
     public void testTimer() {
         Timer testTimer = new Timer(100);
         testTimer.start();
-        TimeHelper.sleep(100);
+        TimeHelper.sleep(150);
         assertTrue(testTimer.isDone() && testTimer.isRunning());
 
         testTimer = new Timer(1000);

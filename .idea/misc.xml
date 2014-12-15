@@ -3,6 +3,7 @@
   <component name="EntryPointsManager">
     <entry_points version="2.0" />
   </component>
+  <component name="IdProvider" IDEtalkID="785B301D449AFF44B3F7F2F1330B54C4" />
   <component name="JavadocGenerationManager">
     <option name="OUTPUT_DIRECTORY" value="I:/Docs/mengine" />
     <option name="OPTION_SCOPE" value="protected" />
@@ -28,7 +29,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" assert-keyword="true" jdk-15="true" project-jdk-name="1.8 [x64]" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" assert-keyword="true" jdk-15="true">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
 </project>
