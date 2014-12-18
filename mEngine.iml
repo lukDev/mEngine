@@ -25,7 +25,7 @@
     <orderEntry type="module-library">
       <library name="Maven: javax.jnlp:jnlp-api:5.0">
         <CLASSES>
-          <root url="jar://$APPLICATION_HOME_DIR$/jre/jre/lib/javaws.jar!/" />
+          <root url="jar://C:/Program Files/Java/jdk1.8.0_05/jre/lib/javaws.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
