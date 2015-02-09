@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014 mgamelabs
+ * Copyright (c) 2015 mgamelabs
  * To see our full license terms, please visit https://github.com/mgamelabs/mengine/blob/master/LICENSE.md
  * All rights reserved.
  */
@@ -59,7 +59,6 @@ public class Input {
             }
 
         } else {
-
             switch (type) {
                 case PRESSED:
                     if (isButtonPressed(code))
@@ -76,7 +75,6 @@ public class Input {
                         eventTriggered = true;
                     break;
             }
-
         }
 
         return eventTriggered;

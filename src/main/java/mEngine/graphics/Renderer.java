@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014 mgamelabs
+ * Copyright (c) 2015 mgamelabs
  * To see our full license terms, please visit https://github.com/mgamelabs/mengine/blob/master/LICENSE.md
  * All rights reserved.
  */
@@ -9,7 +9,6 @@ package mEngine.graphics;
 import mEngine.gameObjects.modules.renderable.light.DirectionalLightSource;
 import mEngine.gameObjects.modules.renderable.light.LightSource;
 import mEngine.gameObjects.modules.renderable.light.SpotLightSource;
-import mEngine.graphics.renderable.materials.Material;
 import mEngine.graphics.renderable.materials.Material2D;
 import mEngine.graphics.renderable.materials.Material3D;
 import mEngine.util.math.MathHelper;
@@ -119,7 +118,7 @@ public class Renderer {
         glDeleteBuffers(vboNormalHandle);
         glDeleteBuffers(vboTextureHandle);
 
-        Material.release();
+        material.release();
 
         glEndList();
 
@@ -185,8 +184,6 @@ public class Renderer {
             glDeleteBuffers(vboNormalHandle);
             glDeleteBuffers(vboVertexHandle);
 
-            Material.release();
-
             glEndList();
 
         } else {
@@ -249,8 +246,6 @@ public class Renderer {
             glDeleteBuffers(vboNormalHandle);
             glDeleteBuffers(vboTextureHandle);
 
-            Material.release();
-
             glEndList();
 
         }
@@ -307,8 +302,6 @@ public class Renderer {
 
         glDeleteBuffers(vboNormalHandle);
         glDeleteBuffers(vboVertexHandle);
-
-        Material.release();
 
         glEndList();
 
@@ -454,7 +447,7 @@ public class Renderer {
         if (GraphicsController.isBlackAndWhite)
             glUniform4f(glGetUniformLocation(shader, "color"), 0, 0, 0, 0);
 
-        Material.release();
+        material.release();
 
         ShaderHelper.useNoShader();
 
@@ -556,7 +549,7 @@ public class Renderer {
         if (GraphicsController.isBlackAndWhite || !material.hasTexture())
             glUniform4f(glGetUniformLocation(shader, "color"), 0, 0, 0, 0);
 
-        Material.release();
+        material.release();
 
         ShaderHelper.useNoShader();
 
@@ -612,7 +605,7 @@ public class Renderer {
         glDeleteBuffers(vboVertexHandle);
         glDeleteBuffers(vboTextureHandle);
 
-        Material.release();
+        material.release();
 
     }
 

@@ -1,11 +1,12 @@
 /*
- * Copyright (c) 2014 mgamelabs
+ * Copyright (c) 2015 mgamelabs
  * To see our full license terms, please visit https://github.com/mgamelabs/mengine/blob/master/LICENSE.md
  * All rights reserved.
  */
 
 package mEngine.core;
 
+import mEngine.gameObjects.modules.gui.GUIElement;
 import mEngine.graphics.GraphicsController;
 import mEngine.graphics.RenderQueue;
 import mEngine.graphics.Renderer;
@@ -33,6 +34,8 @@ public class RenderLoop {
                 if (!Serializer.isSerializing) {
                     //Renders all the gameObjects
                     ObjectController.gameObjects.forEach(mEngine.gameObjects.GameObject::addToRenderQueue);
+                    ObjectController.guiScreens.forEach(screen ->
+                            screen.getElements().forEach(GUIElement::addToRenderQueue));
                 }
                 Renderer.currentRenderQueue.render();
             }

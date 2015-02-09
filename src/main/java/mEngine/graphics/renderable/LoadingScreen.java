@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014 mgamelabs
+ * Copyright (c) 2015 mgamelabs
  * To see our full license terms, please visit https://github.com/mgamelabs/mengine/blob/master/LICENSE.md
  * All rights reserved.
  */
@@ -22,7 +22,6 @@ public class LoadingScreen extends GUIScreen {
     private Material2D material;
     private List<Vector2f> vertices;
     private List<Vector2f> uvs;
-    private List<GUIElement> elements;
 
     /**
      * Default constructor for loading screens.
@@ -37,7 +36,6 @@ public class LoadingScreen extends GUIScreen {
         material.setTextureName(backgroundTextureName);
         vertices = new ArrayList<>();
         uvs = new ArrayList<>();
-        elements = new ArrayList<>();
 
         uvs.add(new Vector2f(0, 1));
         uvs.add(new Vector2f(1, 1));
@@ -65,10 +63,6 @@ public class LoadingScreen extends GUIScreen {
         vertices.add(new Vector2f(pox, poy));
         vertices.add(new Vector2f(-pox, poy));
 
-    }
-
-    public void addElement(GUIElement element) {
-        elements.add(element);
     }
 
     public void render() {

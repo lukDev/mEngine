@@ -1,12 +1,11 @@
 /*
- * Copyright (c) 2014 mgamelabs
+ * Copyright (c) 2015 mgamelabs
  * To see our full license terms, please visit https://github.com/mgamelabs/mengine/blob/master/LICENSE.md
  * All rights reserved.
  */
 
 package mEngine.development;
 
-import mEngine.gameObjects.GameObject;
 import mEngine.gameObjects.modules.gui.GUIElement;
 import mEngine.graphics.GraphicsController;
 import mEngine.graphics.gui.GUIScreen;
@@ -17,7 +16,6 @@ import mEngine.util.input.InputEventType;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.util.vector.Vector2f;
-import org.lwjgl.util.vector.Vector3f;
 
 import static mEngine.core.GameController.*;
 import static mEngine.core.ObjectController.setLoadingScreen;
@@ -57,24 +55,23 @@ class Setup {
         Input.assignInputEvent("pauseGame", true, InputEventType.ACTIVATED, Keyboard.KEY_ESCAPE);
         Input.assignInputEvent("screenshot", true, InputEventType.ACTIVATED, Keyboard.KEY_F2);
 
-        new GameObject(new Vector3f(), new Vector3f())
-          .addModule(new GUIElement(new Vector2f()) {
-              @Override
-              public void onUpdate() {
-                  super.onUpdate();
-                  if (Input.inputEventTriggered("pauseGame")) {
-                      if (isGamePaused()) resumeGame();
-                      else pauseGame();
-                  }
-              }
+        alwaysActive.addElement(new GUIElement(new Vector2f()) {
+            @Override
+            public void onUpdate() {
+                super.onUpdate();
+                if (Input.inputEventTriggered("pauseGame")) {
+                    if (isGamePaused()) resumeGame();
+                    else pauseGame();
+                }
+            }
 
-              @Override
-              public void render() {
-                  super.render();
-                  if (Input.inputEventTriggered("screenshot")) GraphicsController.takeScreenshot();
-              }
-          }.setGUIScreen(alwaysActive))
-          .createModules();
+            @Override
+            public void render() {
+                super.render();
+                if (Input.inputEventTriggered("screenshot")) GraphicsController.takeScreenshot();
+            }
+        });
+
     }
 
 }

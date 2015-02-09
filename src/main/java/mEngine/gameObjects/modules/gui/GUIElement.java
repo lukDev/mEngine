@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014 mgamelabs
+ * Copyright (c) 2015 mgamelabs
  * To see our full license terms, please visit https://github.com/mgamelabs/mengine/blob/master/LICENSE.md
  * All rights reserved.
  */
@@ -9,8 +9,6 @@ package mEngine.gameObjects.modules.gui;
 import mEngine.gameObjects.modules.gui.modules.GUIModule;
 import mEngine.gameObjects.modules.renderable.ModuleRenderable;
 import mEngine.graphics.Renderer;
-import mEngine.graphics.gui.GUIScreen;
-import mEngine.graphics.gui.GUIScreenController;
 import mEngine.graphics.renderable.materials.Material2D;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.util.vector.Vector2f;
@@ -25,18 +23,13 @@ public class GUIElement extends ModuleRenderable {
     public List<GUIModule> components = new ArrayList<>();
     private Vector2f position; //Values from 0 to 1
     private Vector2f size; //Values from 0 to 1
-    private GUIScreen screen; //The GUI screen to display this element on
 
     public GUIElement(Vector2f posInPixels) {
-
         this(posInPixels, new Vector2f());
-
     }
 
     public GUIElement(Vector2f posInPixels, Vector2f sizeInPixels) {
-
         this(posInPixels, sizeInPixels, Color.white);
-
     }
 
     public GUIElement(Vector2f posInPixels, Vector2f sizeInPixels, String textureName) {
@@ -78,9 +71,7 @@ public class GUIElement extends ModuleRenderable {
     @Override
     public void onUpdate() {
         super.onUpdate();
-
-        if (GUIScreenController.isScreenActive(screen) || screen == null)
-            components.forEach(mEngine.gameObjects.modules.gui.modules.GUIModule::onUpdate);
+        components.forEach(mEngine.gameObjects.modules.gui.modules.GUIModule::onUpdate);
     }
 
     @Override
@@ -96,11 +87,6 @@ public class GUIElement extends ModuleRenderable {
     public void onLoad() {
         super.onLoad();
         components.forEach(mEngine.gameObjects.modules.gui.modules.GUIModule::onLoad);
-    }
-
-    public GUIElement setGUIScreen(GUIScreen screen) {
-        this.screen = screen;
-        return this;
     }
 
     public GUIElement addModule(GUIModule module) {
@@ -123,8 +109,7 @@ public class GUIElement extends ModuleRenderable {
 
     @Override
     public void addToRenderQueue() {
-        if (GUIScreenController.isScreenActive(screen) || screen == null)
-            Renderer.currentRenderQueue.addGUIElement(this);
+        Renderer.currentRenderQueue.addGUIElement(this);
     }
 
     public Vector2f getSize() {

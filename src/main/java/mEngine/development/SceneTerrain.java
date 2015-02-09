@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014 mgamelabs
+ * Copyright (c) 2015 mgamelabs
  * To see our full license terms, please visit https://github.com/mgamelabs/mengine/blob/master/LICENSE.md
  * All rights reserved.
  */
@@ -42,6 +42,10 @@ public class SceneTerrain {
 
         Setup.setupDefaults();
 
+        Setup.inGame.addElement(new GUIElement(new Vector2f(5, 5), new Vector2f(334, 70))
+                .setMaterial((Material2D) new Material2D().setTextureName("mng-anim/mng-anim"))
+                .addModule(new GUIQuad()));
+
         //GameObject Time ;)
         new GameObject(new Vector3f(0, 5, 0), new Vector3f(0, 0, 0))
           .addModule(new MovementModule())
@@ -54,17 +58,13 @@ public class SceneTerrain {
           )
           .addModule(new Skybox("peaks"))
           .addModule(new Camera())
-          .addModule(new GUIElement(new Vector2f(5, 5), new Vector2f(334, 70))
-            .setGUIScreen(Setup.alwaysActive)
-            .setMaterial((Material2D) new Material2D().setTextureName("mng-anim/mng-anim"))
-            .addModule(new GUIQuad()))
           .addModule(new Module() {
               @Override
               public void onUpdate() {
                   super.onUpdate();
-                  if (Input.isKeyDown(Keyboard.KEY_C))
+                  if (Input.isKeyPressed(Keyboard.KEY_C))
                       ((PhysicsModule) ObjectController.getGameObject(0).getModule(PhysicsModule.class))
-                        .setVelocity(new javax.vecmath.Vector3f(), new javax.vecmath.Vector3f());
+                              .setVelocity(new javax.vecmath.Vector3f(), new javax.vecmath.Vector3f());
               }
           })
           .addModule(new AudioListener())
@@ -84,7 +84,7 @@ public class SceneTerrain {
         }
 
         new GameObject(new Vector3f(), new Vector3f())
-          .addModule(new Terrain(heightmap, 40).setMaterial((Material3D) new Material3D().setTextureName("checkerPattern")))
+                .addModule(new Terrain(heightmap, 40, 0.1f).setMaterial((Material3D) new Material3D().setTextureName("checkerPattern")))
           .createModules();
 
         new GameObject(new Vector3f(0, 10, 0), new Vector3f())

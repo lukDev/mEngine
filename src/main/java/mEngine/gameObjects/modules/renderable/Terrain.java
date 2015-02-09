@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014 mgamelabs
+ * Copyright (c) 2015 mgamelabs
  * To see our full license terms, please visit https://github.com/mgamelabs/mengine/blob/master/LICENSE.md
  * All rights reserved.
  */
@@ -22,10 +22,12 @@ public class Terrain extends RenderModule {
 
     private Vector3f size;
     private float[][] heightmap;
+    private float resolution;
 
-    public Terrain(float[][] heightmap, float maxHeight) {
+    public Terrain(float[][] heightmap, float maxHeight, float resolution) {
         super(new Model());
         this.heightmap = heightmap;
+        this.resolution = (float) MathHelper.clamp(resolution, 0, 1);
         size = new Vector3f(heightmap.length, maxHeight, heightmap[0].length);
         material = new Material3D();
         material.diffuseReflectivity.set(1, 1, 1);
@@ -49,9 +51,9 @@ public class Terrain extends RenderModule {
         ArrayList<Vector3f> normals = new ArrayList<>();
         ArrayList<Vector2f> uvs = new ArrayList<>();
 
-        for (int z = 0; z < (int) size.z; z++) {
-            for (int x = 0; x < (int) size.x; x++) {
-                vertices.add(new Vector3f(x, heightmap[x][z] * size.y, z)); //Making all vertices
+        for (int z = 0; z < heightmap[0].length; z++) {
+            for (int x = 0; x < heightmap.length; x++) {
+                vertices.add(new Vector3f(x * resolution, heightmap[x][z] * size.y, z * resolution)); //Making all vertices
                 uvs.add(new Vector2f(new Vector2f((float) MathHelper.clamp((float) x / size.x, 0, 1),
                   (float) MathHelper.clamp((float) z / size.z, 0, 1))));
 

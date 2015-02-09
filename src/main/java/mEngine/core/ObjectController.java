@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014 mgamelabs
+ * Copyright (c) 2015 mgamelabs
  * To see our full license terms, please visit https://github.com/mgamelabs/mengine/blob/master/LICENSE.md
  * All rights reserved.
  */
@@ -7,6 +7,7 @@
 package mEngine.core;
 
 import mEngine.gameObjects.GameObject;
+import mEngine.graphics.gui.GUIScreen;
 import mEngine.graphics.gui.GUIScreenController;
 import mEngine.graphics.renderable.LoadingScreen;
 
@@ -15,9 +16,12 @@ import java.util.List;
 
 public class ObjectController {
 
-    public static List<GameObject> gameObjects = new ArrayList<GameObject>();
+    public static List<GameObject> gameObjects = new ArrayList<>();
+    public static List<GUIScreen> guiScreens = new ArrayList<>();
+
     private static List<GameObject> gameObjectsToAdd = new ArrayList<>();
     private static List<GameObject> gameObjectsToRemove = new ArrayList<>();
+
     private static LoadingScreen loadingScreen;
 
     /**
@@ -41,6 +45,18 @@ public class ObjectController {
      */
     public static GameObject getGameObject(int index) {
         return gameObjects.get(index);
+    }
+
+    public static void addGuiScreen(GUIScreen screen) {
+        guiScreens.add(screen);
+    }
+
+    public static GUIScreen getGuiScreen(int index) {
+        return guiScreens.get(index);
+    }
+
+    public static List<GUIScreen> getGuiScreens() {
+        return guiScreens;
     }
 
     /**

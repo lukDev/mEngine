@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014 mgamelabs
+ * Copyright (c) 2015 mgamelabs
  * To see our full license terms, please visit https://github.com/mgamelabs/mengine/blob/master/LICENSE.md
  * All rights reserved.
  */
@@ -22,7 +22,7 @@ public abstract class Material implements Serializable {
     /**
      * Releases the texture from the render context, prevents textures leaking onto other objects
      */
-    public static void release() {
+    public void release() {
         TextureImpl.bindNone();
     }
 
